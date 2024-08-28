@@ -1,1 +1,0 @@
-C:\DotNetCore\Projects\TradingDemo\tradingdemo.client\obj\Debug\tradingdemo.client.esproj.CoreCompileInputs.cache
