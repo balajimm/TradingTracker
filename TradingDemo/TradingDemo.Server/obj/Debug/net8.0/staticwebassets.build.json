@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "5KHbCgPn6j/JgRisKg59RQx7fTaEnfakDmGfa/ynRN4=",
+  "Source": "TradingDemo.Server",
+  "BasePath": "_content/TradingDemo.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\DotNetCore\\Projects\\TradingDemo\\tradingdemo.client\\tradingdemo.client.esproj",
+      "Version": 2,
+      "Source": "tradingdemo.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

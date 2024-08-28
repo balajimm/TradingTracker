@@ -1,0 +1,6 @@
+@TradingDemo.Server_HostAddress = http://localhost:5031
+
+GET {{TradingDemo.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

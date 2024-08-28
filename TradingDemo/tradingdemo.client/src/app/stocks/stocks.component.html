@@ -1,0 +1,55 @@
+<h1 id="tableLabel">Stocks</h1>
+
+<p>Stock details</p>
+
+
+<p *ngIf="!stocksdata?.length"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="stocksdata.length">
+    <thead>
+        <tr>
+            <th>  stock Id           </th>
+            <th>   stock Name          </th>
+            <th>   stock Code          </th>
+            <th>   sector             </th>
+            <th>   captial            </th>
+            <th>   eps                </th>
+            <th>   price Earn          </th>
+            <th>   pirce Book          </th>
+            <th>   divdent Yield       </th>
+            <th>   roe                </th>
+            <th>   low Value           </th>
+            <th>   high Value          </th>
+            <th>   analysis Price      </th>
+            <th>   created By          </th>
+            <th>   created On          </th>
+            <th>   updated By          </th>
+            <th>   updated On          </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stock of stocksdata">
+
+            <td>{{ stock.stockId	            }}</td>
+            <td>{{ stock.stockName            }}</td>
+            <td>{{ stock.stockCode            }}</td>
+            <td>{{ stock.sector               }}</td>
+            <td>{{ stock.captial              }}</td>
+            <td>{{ stock.eps                  }}</td>
+            <td>{{ stock.priceEarn            }}</td>
+            <td>{{ stock.pirceBook            }}</td>
+            <td>{{ stock.divdentYield         }}</td>
+            <td>{{ stock.roe                  }}</td>
+            <td>{{ stock.lowValue             }}</td>
+            <td>{{ stock.highValue            }}</td>
+            <td>{{ stock.analysisPrice        }}</td>
+            <td>{{ stock.createdBy            }}</td>
+            <td>{{ stock.createdOn            }}</td>
+            <td>{{ stock.updatedBy            }}</td>
+            <td>{{ stock.updatedOn            }}</td>
+
+        </tr>
+    </tbody>
+</table>
+
