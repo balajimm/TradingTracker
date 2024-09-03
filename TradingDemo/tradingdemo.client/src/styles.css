@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+p{
+    text-align:left;
+}
+
+.navbar-bg-color {
+  background-color: #d63384;
+}
+.btn-bg-color {
+  background-color: #d63384 !important;
+  color: white !important;
+}
+.marign-LH-30 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+

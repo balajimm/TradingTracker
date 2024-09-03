@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HelperService } from '../helper.service';
 
 interface Stocks {
 
@@ -56,21 +57,13 @@ export class StocksComponent {
 
   title = 'tradingdemo.client';
   public stocksdata: Stocks[] = [];
-  public baseURL = "";
-  constructor(private http: HttpClient) {
-    this.baseURL = "https://localhost:7117/api/";
+  constructor(private _helperService: HelperService<Stocks>) {    
   }
   ngOnInit() {
-    this.getStocks();
-  }
-  
-  getStocks() {
-    this.http.get<Stocks[]>(this.baseURL +'stock').subscribe(result => {
+    this._helperService.getAll("stock").subscribe(result => {
       console.log(result);
       this.stocksdata = result;
     }, error => console.log(error));
-  }
-   
- 
+   } 
 }
 

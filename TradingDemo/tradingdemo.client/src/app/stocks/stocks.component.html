@@ -1,6 +1,4 @@
-<h1 id="tableLabel">Stocks</h1>
-
-<p>Stock details</p>
+<h1 id="tableLabel" class="text-start">Stocks</h1>
 
 
 <p *ngIf="!stocksdata?.length"><em>Loading...</em></p>
@@ -8,30 +6,25 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="stocksdata.length">
     <thead>
         <tr>
-            <th>  stock Id           </th>
-            <th>   stock Name          </th>
-            <th>   stock Code          </th>
-            <th>   sector             </th>
-            <th>   captial            </th>
-            <th>   eps                </th>
-            <th>   price Earn          </th>
-            <th>   pirce Book          </th>
-            <th>   divdent Yield       </th>
-            <th>   roe                </th>
-            <th>   low Value           </th>
-            <th>   high Value          </th>
-            <th>   analysis Price      </th>
-            <th>   created By          </th>
-            <th>   created On          </th>
-            <th>   updated By          </th>
-            <th>   updated On          </th>
-
+            <th>		Stock Id            </th>
+            <th>		 Stock Name           </th>
+            <th>		 Stock Code           </th>
+            <th>		 Sector              </th>
+            <th>		 Captial             </th>
+            <th>		 Eps                 </th>
+            <th>		 Price Earn           </th>
+            <th>		 Pirce Book           </th>
+            <th>		 Dividend Yield       </th>
+            <th>		 Roe                 </th>
+            <th>		 Low Value            </th>
+            <th>		 High Value           </th>
+            <th>		 Analysis Price       </th>
+            <th>		 Action               </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let stock of stocksdata">
-
-            <td>{{ stock.stockId	            }}</td>
+            <td>{{    stock.stockId      }}</td>
             <td>{{ stock.stockName            }}</td>
             <td>{{ stock.stockCode            }}</td>
             <td>{{ stock.sector               }}</td>
@@ -44,11 +37,7 @@
             <td>{{ stock.lowValue             }}</td>
             <td>{{ stock.highValue            }}</td>
             <td>{{ stock.analysisPrice        }}</td>
-            <td>{{ stock.createdBy            }}</td>
-            <td>{{ stock.createdOn            }}</td>
-            <td>{{ stock.updatedBy            }}</td>
-            <td>{{ stock.updatedOn            }}</td>
-
+            <td><button type="button" class="btn btn-bg-color" routerLink="/stocks/stock/{{stock.stockId}}">View</button></td>
         </tr>
     </tbody>
 </table>
