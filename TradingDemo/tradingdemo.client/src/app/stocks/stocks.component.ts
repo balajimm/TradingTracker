@@ -57,10 +57,10 @@ export class StocksComponent {
 
   title = 'tradingdemo.client';
   public stocksdata: Stocks[] = [];
-  constructor(private _helperService: HelperService<Stocks>) {    
+  constructor(private _helperService: HelperService) {    
   }
   ngOnInit() {
-    this._helperService.getAll("stock").subscribe(result => {
+    this._helperService.getItems("stock").subscribe(result => {
       console.log(result);
       this.stocksdata = result;
     }, error => console.log(error));

@@ -10,6 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HoldingsComponent } from './holdings/holdings.component';
 import { StockComponent } from './stock/stock.component';
 import { HelperService } from './helper.service';
+import { BaseChartDirective } from 'ng2-charts'
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -18,17 +22,19 @@ import { HelperService } from './helper.service';
     StocksComponent,
     HoldingsComponent,
     StockComponent,
+    LineChartComponent,
+    BarChartComponent,
     
    
   ],
   imports: [
-    BrowserModule, HttpClientModule, 
+    BrowserModule, HttpClientModule, BaseChartDirective,
     RouterModule.forRoot([      
       { path: 'stocks', component: StocksComponent },
       { path: 'stocks/stock/:id', component: StockComponent },
     ]), AppRoutingModule
   ],
-  providers: [HelperService],
+  providers: [HelperService, provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

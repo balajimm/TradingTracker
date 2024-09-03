@@ -1,24 +1,77 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable,map } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable,map, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class HelperService<T> {
-  public baseURL = "";
-  public resultData: T[] = [];
+export class HelperService {
+  public apiUrl = "";
+ /* public resultData: T[] = [];*/
   public waitingData: any;
-  constructor(private _httpService: HttpClient) {
-    this.baseURL = "https://localhost:7117/api/";
+  constructor(private http: HttpClient) {
+    this.apiUrl = "https://localhost:7117/api/";
   }
-  getAll(serviceName: string): Observable<T[]> {
-    //.pipe(map((apiCountry: Country[]) => apiCountry[0]));
-    return this._httpService.get<T[]>(this.baseURL + serviceName).pipe(map((apiData: T[]) => apiData));
-    //this._httpService.get<T[]>(this.baseURL + serviceName).subscribe(result => {
-    //console.log(result);
-    //this.resultData =  result;
-    //}, error => console.log(error));    
-    //return this.resultData;
+  //getAll(serviceName: string): Observable<T[]> {   
+  //  return this.http.get<T[]>(this.apiUrl + serviceName).pipe(map((apiData: T[]) => apiData));   
+  //}
+  //getById(serviceName: string,paramId: string): Observable<T> {
+  //  return this.http.get<T>(this.baseURL + serviceName +"/"+${Id}).pipe(map((apiData: T[]) => apiData[0]));
+  //}
+
+  // Read (Get) - Fetch all items
+  getItems(serviceName: string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + serviceName).pipe(
+      catchError(this.handleError<any[]>('getItems', []))
+    );
   }
+
+  // Read (Get) - Fetch a single item by ID
+  getItem(serviceName: string, id: string): Observable<any> {
+    // Create HttpParams object to hold query parameters
+    let params = new HttpParams().set('stockid', id);
+
+    const url = `${this.apiUrl+serviceName}/${id}`;
+    return this.http.get<any>(url, { params }).pipe(
+      catchError(this.handleError<any>(`getItem id=${id}`))
+    );
+  }
+
+  // Create - Add a new item
+  addItem(item: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, item, this.httpOptions).pipe(
+      catchError(this.handleError<any>('addItem'))
+    );
+  }
+
+  // Update - Edit an existing item
+  updateItem(id: number, item: any): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put(url, item, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateItem'))
+    );
+  }
+
+  // Delete - Remove an item by ID
+  deleteItem(id: number): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url).pipe(
+      catchError(this.handleError<any>('deleteItem'))
+    );
+  }
+
+  // Error handling
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(result as T); // Use `of` to return an observable of the result
+    };
+  }
+
+  // HTTP Options
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 }

@@ -16,3 +16,29 @@ p{
   margin-right: 10px;
 }
 
+#top-ratios {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  color: var(--ink-700);
+}
+.flex-space-between {
+  justify-content: space-between;
+}
+.flex {
+  display: -ms-flexbox;
+  display: flex;
+}
+/*li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+  align-items: center;
+}*/
+custom-list-item {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
