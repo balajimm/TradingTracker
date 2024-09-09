@@ -1,6 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 /*import { AppComponent } from './app/app.component';*/
 import { AppModule } from './app/app.module';
+import 'chartjs-adapter-date-fns';
 //import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 //import { bootstrapApplication } from '@angular/platform-browser';
 export function getBaseUrl() {

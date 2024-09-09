@@ -35,4 +35,6 @@ app.MapFallbackToFile("/index.html");
 
 app.MapStockEndpoints();
 
+app.MapStockTrackEndpoints();
+
 app.Run();

@@ -10,19 +10,56 @@ import { HelperService } from '../helper.service';
 
 export class StockComponent implements OnInit {
   stockId: any;
-  public stock: any;
+  public stock:Partial<Stocks> = {};
+  public stockTrack: StockTrack[]=[];
+  //public chartLabels: string[] = [];
+  //public chartData: any[] = [];
+  public data : DataPoint[] = [];
   constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService) { }
   ngOnInit(): void {
+    
     this.stockId = this.activatedRoute.snapshot.params["id"];
     this._helperService.getItem("stock", this.stockId).subscribe(result => {
       console.log(result);
       this.stock = result;
     }, error => console.log(error));
+    this.GetStockHistory();
+    
   }
-  // Method to get the keys of the object
-  getKeys(obj: any): string[] {
-    return Object.keys(obj);
+  GetStockHistory(): void {
+    this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
+      console.log(result);
+      this.stockTrack = result;
+      this.mapDataToChart();
+    }, error => console.log(error));
   }
+  mapDataToChart(): void {
+
+   
+    // Convert date to string format (e.g., 'MMM YYYY') and extract values
+    //this.chartLabels = this.stockTrack.map(item => {
+    //  const dateOptions: Intl.DateTimeFormatOptions = {
+    //    year: 'numeric',
+    //    month: 'short'
+    //  };
+    //  //const options = { year: 'numeric', month: 'short' };
+    //  return new Intl.DateTimeFormat('en-US', dateOptions).format(item.sharemarketDate);
+    //});
+
+    //this.chartData = [
+    //  {
+    //    data: this.stockTrack.map(item => item.avgPrice),
+    //    label: 'Monthly Data'
+    //  }
+    //];
+
+    this.data = this.stockTrack.map(item => ({
+      date: new Date(item.sharemarketDate),
+      value: item.avgPrice
+    }));
+    console.log("chart data");
+    console.log(this.data);
+  } 
 }
 interface Stocks {
 
@@ -44,4 +81,20 @@ interface Stocks {
   updatedBy: any;
   updatedOn: string;
 
+}
+interface StockTrack {
+  stockTrackId: any;
+  stockId: any;
+  sharemarketDate: Date;
+  lowValue: any;
+  highValue: any;
+  openPrice: any;
+  closePrice: any;
+  avgPrice: any;
+  volume: any;
+  stock: any;
+}
+interface DataPoint {
+  date: Date;
+  value: number;
 }

@@ -14,6 +14,7 @@ import { BaseChartDirective } from 'ng2-charts'
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+//import { NgChartsModule } from 'ng2-charts'; // Ensure this is importe
 
 @NgModule({
   declarations: [
