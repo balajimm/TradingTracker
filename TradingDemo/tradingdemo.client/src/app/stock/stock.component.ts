@@ -29,9 +29,19 @@ export class StockComponent implements OnInit {
   GetStockHistory(): void {
     this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
       console.log(result);
-      this.stockTrack = result;
+      this.stockTrack = result.slice(0, 5);
       this.mapDataToChart();
     }, error => console.log(error));
+  }
+  formatDate(date: Date): string {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+      return "2024/09/09";
+    }
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are 0-based
+    const day = ('0' + date.getDate()).slice(-2);
+
+    return `${year}/${month}/${day}`;
   }
   mapDataToChart(): void {
 
@@ -54,12 +64,13 @@ export class StockComponent implements OnInit {
     //];
 
     this.data = this.stockTrack.map(item => ({
-      date: new Date(item.sharemarketDate),
-      value: item.avgPrice
+      date: new Date(this.formatDate(new Date(item.sharemarketDate))),
+      value: Math.round(item.avgPrice)
     }));
     console.log("chart data");
     console.log(this.data);
-  } 
+  }  
+ 
 }
 interface Stocks {
 
@@ -82,7 +93,7 @@ interface Stocks {
   updatedOn: string;
 
 }
-interface StockTrack {
+export interface StockTrack {
   stockTrackId: any;
   stockId: any;
   sharemarketDate: Date;
@@ -94,7 +105,7 @@ interface StockTrack {
   volume: any;
   stock: any;
 }
-interface DataPoint {
+export interface DataPoint {
   date: Date;
   value: number;
 }

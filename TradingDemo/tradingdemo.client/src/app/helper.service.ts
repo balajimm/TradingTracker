@@ -15,11 +15,22 @@ export class HelperService {
     this.apiUrl = "https://localhost:7117/api/";
   }
   //getAll(serviceName: string): Observable<T[]> {   
-  //  return this.http.get<T[]>(this.apiUrl + serviceName).pipe(map((apiData: T[]) => apiData));   
+  //  return this.http.get<T[]>(this.apiUrl + serviceName).pipe(map((apiData: T[]) => apiData));
   //}
   //getById(serviceName: string,paramId: string): Observable<T> {
   //  return this.http.get<T>(this.baseURL + serviceName +"/"+${Id}).pipe(map((apiData: T[]) => apiData[0]));
   //}
+  //Common Function
+  formatDate(date: Date): string {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+      return "2024/09/09";
+    }
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are 0-based
+    const day = ('0' + date.getDate()).slice(-2);
+
+    return `${year}/${month}/${day}`;
+  }
 
   // Read (Get) - Fetch all items
   getItems(serviceName: string): Observable<any[]> {

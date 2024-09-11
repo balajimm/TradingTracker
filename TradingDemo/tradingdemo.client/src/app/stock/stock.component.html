@@ -77,28 +77,19 @@
 </div>
 <!-- Stock Details Content Row -->
 <!-- Content Row -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-xl-8 col-lg-7">
-        <!-- Area Chart -->
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
-                    <app-line-chart></app-line-chart>
+                    <app-line-chart class="chart-bar" [dataSource]="data"></app-line-chart>
                 </div>
             </div>
-        </div>
-        <!-- Bar Chart -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-bar">
-                    <app-bar-chart class="chart-bar" [dataSource]="data"></app-bar-chart>
-                </div>
-            </div>
-        </div>
-    </div>
+        </div> -->
+<!-- Bar Chart -->
+<app-line-chart class="chart-bar"></app-line-chart>
+<app-bar-chart class="chart-bar"></app-bar-chart>

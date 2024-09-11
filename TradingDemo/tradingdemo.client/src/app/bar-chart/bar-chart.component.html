@@ -1,7 +1,17 @@
-
+<!-- 
 <canvas class="chart-bar" baseChart
         [data]="barChartData"
         [options]="barChartOptions"
-        [type]="barChartType">
+        [type]="'bar'">
 </canvas>
-
+ -->
+<!-- <canvas id="canvas" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+        [legend]="barChartLegend" [type]="'bar'">
+</canvas> -->
+<canvas baseChart
+        [data]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="'bar'">
+</canvas>
