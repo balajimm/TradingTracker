@@ -14,6 +14,8 @@ import { BaseChartDirective } from 'ng2-charts'
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { AddComponent } from './stock/add/add.component';
+import { FormsModule } from '@angular/forms';
 //import { NgChartsModule } from 'ng2-charts'; // Ensure this is importe
 
 @NgModule({
@@ -25,14 +27,16 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     StockComponent,
     LineChartComponent,
     BarChartComponent,
+    AddComponent,
     
    
   ],
   imports: [
-    BrowserModule, HttpClientModule, BaseChartDirective,
+    BrowserModule, HttpClientModule, BaseChartDirective, FormsModule,
     RouterModule.forRoot([      
       { path: 'stocks', component: StocksComponent },
       { path: 'stocks/stock/:id', component: StockComponent },
+      { path: 'stocks/stock/add/:id', component: AddComponent },
     ]), AppRoutingModule
   ],
   providers: [HelperService, provideCharts(withDefaultRegisterables())],

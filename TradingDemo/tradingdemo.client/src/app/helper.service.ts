@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class HelperService {
+export class HelperService <T>{
   public apiUrl = "";
  /* public resultData: T[] = [];*/
   public waitingData: any;
@@ -51,9 +51,9 @@ export class HelperService {
   }
 
   // Create - Add a new item
-  addItem(item: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, item, this.httpOptions).pipe(
-      catchError(this.handleError<any>('addItem'))
+  addItem(serviceName: string, item: T): Observable<T> {
+    return this.http.post<any>(this.apiUrl + serviceName, item, this.httpOptions).pipe(
+      catchError(this.handleError<T>('addItem'))
     );
   }
 

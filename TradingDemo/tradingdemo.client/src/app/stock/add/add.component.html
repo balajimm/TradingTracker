@@ -1,0 +1,37 @@
+<!-- src/app/stock/add/add.component.html -->
+<h2 mat-dialog-title>Add Stock</h2>
+<form (ngSubmit)="add()">
+
+    <span>Stock ID</span>
+    <input matInput [(ngModel)]="stock.stockId" name="StockId"  required>
+
+    <span>Trade Date</span>
+    <input matInput [(ngModel)]="stock.sharemarketDate" name="tradeDate" required type="date">
+
+
+    <span>Low Value</span>
+    <input matInput [(ngModel)]="stock.lowValue" name="lowValue" required type="number">
+
+
+    <span>High Value</span>
+    <input matInput [(ngModel)]="stock.highValue" name="highValue" required type="number">
+
+    <span>Open Price</span>
+    <input matInput [(ngModel)]="stock.openPrice" name="openPrice" required type="number">
+
+    <span>Close Price</span>
+    <input matInput [(ngModel)]="stock.closePrice" name="closePrice" required type="number">
+
+
+
+    <span>Avg Price</span>
+    <input matInput [(ngModel)]="stock.avgPrice" name="avgPrice" required type="number">
+
+
+
+    <span>Volumne</span>
+    <input matInput [(ngModel)]="stock.volume" name="volume" required type="number">
+
+    <button mat-raised-button color="primary" type="submit">Add</button>
+    <button mat-button>Cancel</button>
+</form>

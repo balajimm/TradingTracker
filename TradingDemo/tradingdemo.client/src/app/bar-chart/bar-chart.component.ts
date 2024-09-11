@@ -27,7 +27,7 @@ export class BarChartComponent implements OnInit {
   //public chartLabels: string[] = [];
   //public chartData: any[] = [];
   public data: DataPoint[] = [];
-  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService) { }
+  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   GetStockHistory(): void {
     this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
       console.log(result);

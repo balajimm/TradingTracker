@@ -28,7 +28,7 @@ export class LineChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType: 'line' = 'line';
   public lineChartPlugins = [];
-  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService) { }
+  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   GetStockHistory(): void {
     this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
       this.stockTrack = result;

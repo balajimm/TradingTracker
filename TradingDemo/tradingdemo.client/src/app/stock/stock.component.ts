@@ -12,10 +12,8 @@ export class StockComponent implements OnInit {
   stockId: any;
   public stock:Partial<Stocks> = {};
   public stockTrack: StockTrack[]=[];
-  //public chartLabels: string[] = [];
-  //public chartData: any[] = [];
   public data : DataPoint[] = [];
-  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService) { }
+  constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   ngOnInit(): void {
     
     this.stockId = this.activatedRoute.snapshot.params["id"];
@@ -103,7 +101,6 @@ export interface StockTrack {
   closePrice: any;
   avgPrice: any;
   volume: any;
-  stock: any;
 }
 export interface DataPoint {
   date: Date;
