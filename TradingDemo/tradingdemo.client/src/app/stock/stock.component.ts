@@ -12,7 +12,8 @@ export class StockComponent implements OnInit {
   stockId: any;
   public stock:Partial<Stocks> = {};
   public stockTrack: StockTrack[]=[];
-  public data : DataPoint[] = [];
+  public data: DataPoint[] = [];
+  
   constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   ngOnInit(): void {
     
@@ -27,7 +28,7 @@ export class StockComponent implements OnInit {
   GetStockHistory(): void {
     this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
       console.log(result);
-      this.stockTrack = result.slice(0, 5);
+      this.stockTrack = result;
       this.mapDataToChart();
     }, error => console.log(error));
   }
@@ -41,34 +42,22 @@ export class StockComponent implements OnInit {
 
     return `${year}/${month}/${day}`;
   }
-  mapDataToChart(): void {
-
-   
-    // Convert date to string format (e.g., 'MMM YYYY') and extract values
-    //this.chartLabels = this.stockTrack.map(item => {
-    //  const dateOptions: Intl.DateTimeFormatOptions = {
-    //    year: 'numeric',
-    //    month: 'short'
-    //  };
-    //  //const options = { year: 'numeric', month: 'short' };
-    //  return new Intl.DateTimeFormat('en-US', dateOptions).format(item.sharemarketDate);
-    //});
-
-    //this.chartData = [
-    //  {
-    //    data: this.stockTrack.map(item => item.avgPrice),
-    //    label: 'Monthly Data'
-    //  }
-    //];
-
+  
+  mapDataToChart(): void {  
     this.data = this.stockTrack.map(item => ({
       date: new Date(this.formatDate(new Date(item.sharemarketDate))),
       value: Math.round(item.avgPrice)
     }));
+     
     console.log("chart data");
+ 
     console.log(this.data);
   }  
  
+}
+export interface HistoricalDetails {
+  month: string; // Format: "YYYY-MM"
+  value: number; // Result value for that month
 }
 interface Stocks {
 
@@ -105,4 +94,32 @@ export interface StockTrack {
 export interface DataPoint {
   date: Date;
   value: number;
+}
+export function reverseOrderByDate(entries: DataPoint[]): DataPoint[] {
+  return entries
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).reverse();
+}
+export function getMonthName(date: Date): string {
+  const monthNames: string[] = [
+    'Jan', 'Feb', 'Mar', 'April', 'May', 'June',
+    'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  // Get the month index (0-11) and return the corresponding month name
+  const monthIndex = date.getMonth();
+  return monthNames[monthIndex];
+}
+export function getSumOfDaysAgo(data: DataPoint[], days: number): HistoricalDetails {
+  var tempData = [...data];
+  var historicalDetails: HistoricalDetails = { month: "", value: 0 };
+  const now = new Date();
+  const DaysAgo = new Date(now);
+  DaysAgo.setDate(now.getDate() - days);
+  tempData = tempData.filter(entry => new Date(entry.date) >= DaysAgo);
+  const recordCount = tempData.length;
+  historicalDetails.month = DaysAgo.getFullYear() + " " + getMonthName(DaysAgo) + " " + DaysAgo.getDate();
+  historicalDetails.value = formatToTwoDecimals(tempData.reduce((sum, entry) => sum + entry.value, 0) / recordCount);  
+  return historicalDetails;
+}
+export function formatToTwoDecimals(value: number): number {
+  return parseFloat(value.toFixed(2));
 }

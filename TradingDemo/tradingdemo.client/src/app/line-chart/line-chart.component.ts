@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { ChartConfiguration, ChartData, ChartOptions, ChartEvent, ChartType } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { HelperService } from '../helper.service';
-import { StockTrack, DataPoint } from '../stock/stock.component'
+import { StockTrack, DataPoint, HistoricalDetails, getSumOfDaysAgo, reverseOrderByDate } from '../stock/stock.component'
 import 'chartjs-adapter-date-fns';
 @Component({
   selector: 'app-line-chart',
@@ -13,6 +13,7 @@ export class LineChartComponent implements OnInit {
   title = 'ng2-charts-demo';
   stockId: any;
   public stockTrack: StockTrack[] = [];
+  public histroyData: HistoricalDetails[] = [];
   //public chartLabels: string[] = [];
   //public chartData: any[] = [];
   public data: DataPoint[] = [];
@@ -36,11 +37,19 @@ export class LineChartComponent implements OnInit {
         date: new Date(this._helperService.formatDate(new Date(item.sharemarketDate))),
         value: Math.round(item.avgPrice)
       }));
+      console.log("Sort order");
+      console.log(this.data);
+      console.log(reverseOrderByDate(this.data));
+      this.data = reverseOrderByDate(this.data);
+      console.log(this.data);
+      for (let i = 5; i <= 450; i = i + 5) {
+        this.histroyData.push(getSumOfDaysAgo(this.data, i));
+      }    
       this.lineChartData = {
-        labels: this.data.map(d => this._helperService.formatDate(d.date)), // Array of labels for the x-axis
+        labels: this.histroyData.map(d => d.month).reverse(), // Array of labels for the x-axis
         datasets: [
           {
-            data: this.data.map(d => d.value), // Array of values for the line chart
+            data: this.histroyData.map(d => d.value).reverse(), // Array of values for the line chart
             label: 'Sample Data',
             borderColor: '#3cba9f',
             backgroundColor: 'rgba(60, 186, 159, 0.2)',
@@ -49,32 +58,7 @@ export class LineChartComponent implements OnInit {
         ]
       };
     });
-  }
-
-      //subscribe(result => {
-      //console.log(result);
-      //this.stockTrack = result;
-      //this.data = this.stockTrack.map(item => ({
-      //  date: new Date(this._helperService.formatDate(new Date(item.sharemarketDate))),
-      //  value: Math.round(item.avgPrice)
-      //}));
-      //this.lineChartData.labels = this.data.map(d => this._helperService.formatDate(d.date));
-      //this.lineChartData.datasets[0].data = this.data.map(d => d.value);
-      //this.lineChartData = {
-      //  labels: this.data.map(d => this._helperService.formatDate(d.date)), // These will be populated with dates from the dataSource
-      //  datasets: [
-      //    {
-      //      data: this.data.map(d => d.value), // These will be populated with values from the dataSource
-      //      label: 'Values',
-      //      backgroundColor: 'rgba(13, 110, 253, 0.5)', // Example color
-      //      borderColor: 'rgba(63, 81, 181, 1)',
-      //      borderWidth: 1
-      //    }
-      //  ]
-      //};
-      //this.barChartLabels = this.data.map(d => this._helperService.formatDate(d.date));
-   // }, error => console.log(error));
- // }
+  }  
   ngOnInit() {
     this.stockId = this.activatedRoute.snapshot.params["id"];
     this.GetStockHistory();

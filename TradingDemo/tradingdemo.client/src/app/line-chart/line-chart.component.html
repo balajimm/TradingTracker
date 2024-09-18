@@ -1,7 +1,22 @@
-<canvas baseChart 
+<canvas baseChart
         [type]="'line'"
         [data]="lineChartData"
         [options]="lineChartOptions"
         [legend]="lineChartLegend">
 </canvas>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Stock Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let event of histroyData">
+            <td>{{ event.month }}</td>
+            <td>{{ event.value }}</td>
+        </tr>
+    </tbody>
+</table>
 
