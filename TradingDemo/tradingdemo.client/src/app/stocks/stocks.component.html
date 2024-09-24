@@ -11,11 +11,9 @@
             <th>		 Stock Code           </th>
             <th>		 Sector              </th>
             <th>		 Captial             </th>
-            <th>		 Eps                 </th>
-            <th>		 Price Earn           </th>
-            <th>		 Pirce Book           </th>
+         
             <th>		 Dividend Yield       </th>
-            <th>		 Roe                 </th>
+       
             <th>		 Low Value            </th>
             <th>		 High Value           </th>
             <th>		 Analysis Price       </th>
@@ -29,15 +27,13 @@
             <td>{{ stock.stockCode            }}</td>
             <td>{{ stock.sector               }}</td>
             <td>{{ stock.captial              }}</td>
-            <td>{{ stock.eps                  }}</td>
-            <td>{{ stock.priceEarn            }}</td>
-            <td>{{ stock.pirceBook            }}</td>
+         
             <td>{{ stock.divdentYield         }}</td>
-            <td>{{ stock.roe                  }}</td>
+           
             <td>{{ stock.lowValue             }}</td>
             <td>{{ stock.highValue            }}</td>
             <td>{{ stock.analysisPrice        }}</td>
-            <td><button type="button" class="btn btn-bg-color" routerLink="/stocks/stock/{{stock.stockId}}">View</button></td>
+            <td><button type="button" class="btn btn-bg-color" routerLink="/stocks/stock/{{stock.stockCode}}">View</button></td>
         </tr>
     </tbody>
 </table>

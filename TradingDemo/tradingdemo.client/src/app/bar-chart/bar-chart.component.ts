@@ -30,13 +30,13 @@ export class BarChartComponent implements OnInit {
   public data: DataPoint[] = [];
   constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   GetStockHistory(): void {
-    this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
+    this._helperService.getItem("StockTracks", this.stockId).subscribe(result => {
       console.log(result);
       this.stockTrack = result;
 
       this.data = this.stockTrack.map(item => ({
         date: new Date(this._helperService.formatDate(new Date(item.sharemarketDate))),
-        value: Math.round(item.avgPrice)
+        value: Math.round(item.closePrice)
       }));
       for (let i = 30; i <= 1080; i = i + 30) {
         this.histroyData.push(getSumOfDaysAgo(this.data, i));

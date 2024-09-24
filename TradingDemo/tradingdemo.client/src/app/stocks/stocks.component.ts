@@ -3,24 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { HelperService } from '../helper.service';
 
 interface Stocks {
-
   stockId: any;
   stockName: string;
   stockCode: string;
   sector: string;
   captial: any;
-  eps: any;
-  priceEarn: any;
-  pirceBook: any;
+
   divdentYield: any;
-  roe: any;
+
   lowValue: any;
   highValue: any;
   analysisPrice: any;
-  createdBy: any;
-  createdOn: string;
-  updatedBy: any;
-  updatedOn: string;
 
 }
 
@@ -60,7 +53,7 @@ export class StocksComponent {
   constructor(private _helperService: HelperService<Stocks>) {    
   }
   ngOnInit() {
-    this._helperService.getItems("stock").subscribe(result => {
+    this._helperService.getItems("stocks").subscribe(result => {
       console.log(result);
       this.stocksdata = result;
     }, error => console.log(error));

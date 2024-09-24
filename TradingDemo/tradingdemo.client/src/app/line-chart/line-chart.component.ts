@@ -31,11 +31,11 @@ export class LineChartComponent implements OnInit {
   public lineChartPlugins = [];
   constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   GetStockHistory(): void {
-    this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
+    this._helperService.getItem("StockTracks", this.stockId).subscribe(result => {
       this.stockTrack = result;
       this.data = this.stockTrack.map(item => ({
         date: new Date(this._helperService.formatDate(new Date(item.sharemarketDate))),
-        value: Math.round(item.avgPrice)
+        value: Math.round(item.closePrice)
       }));
       console.log("Sort order");
       console.log(this.data);

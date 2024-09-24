@@ -11,14 +11,14 @@ import { HelperService } from 'src/app/helper.service'
 })
 export class AddComponent implements OnInit {
   public stock: StockTrack = {
-    stockTrackId:0,
-    stockId: 0,
+    stockTrackId: 0,
+    stockCode: 0,
     sharemarketDate: new Date(),
     openPrice: 0,
     closePrice: 0,
     highValue: 0,
     lowValue: 0,
-    avgPrice: 0,
+    changePercent: 0,
     volume: 0  
 
   };

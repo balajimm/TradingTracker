@@ -9,7 +9,7 @@ import { HelperService } from '../helper.service';
 
 
 export class StockComponent implements OnInit {
-  stockId: any;
+  stockCode: any;
   public stock:Partial<Stocks> = {};
   public stockTrack: StockTrack[]=[];
   public data: DataPoint[] = [];
@@ -17,16 +17,16 @@ export class StockComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private _helperService: HelperService<StockTrack>) { }
   ngOnInit(): void {
     
-    this.stockId = this.activatedRoute.snapshot.params["id"];
-    this._helperService.getItem("stock", this.stockId).subscribe(result => {
-      console.log(result);
-      this.stock = result;
-    }, error => console.log(error));
+    this.stockCode = this.activatedRoute.snapshot.params["id"];
+    //this._helperService.getItem("stocks", this.stockCode).subscribe(result => {
+    //  console.log(result);
+    //  this.stock = result;
+    //}, error => console.log(error));
     this.GetStockHistory();
     
   }
   GetStockHistory(): void {
-    this._helperService.getItem("StockTrack", this.stockId).subscribe(result => {
+    this._helperService.getItem("StockTracks", this.stockCode).subscribe(result => {
       console.log(result);
       this.stockTrack = result;
       this.mapDataToChart();
@@ -46,7 +46,7 @@ export class StockComponent implements OnInit {
   mapDataToChart(): void {  
     this.data = this.stockTrack.map(item => ({
       date: new Date(this.formatDate(new Date(item.sharemarketDate))),
-      value: Math.round(item.avgPrice)
+      value: Math.round(item.closePrice)
     }));
      
     console.log("chart data");
@@ -60,35 +60,25 @@ export interface HistoricalDetails {
   value: number; // Result value for that month
 }
 interface Stocks {
-
   stockId: any;
   stockName: string;
   stockCode: string;
   sector: string;
   captial: any;
-  eps: any;
-  priceEarn: any;
-  pirceBook: any;
-  divdentYield: any;
-  roe: any;
+  divdentYield: any; 
   lowValue: any;
   highValue: any;
   analysisPrice: any;
-  createdBy: any;
-  createdOn: string;
-  updatedBy: any;
-  updatedOn: string;
-
 }
 export interface StockTrack {
   stockTrackId: any;
-  stockId: any;
+  stockCode: any;
   sharemarketDate: Date;
   lowValue: any;
   highValue: any;
   openPrice: any;
   closePrice: any;
-  avgPrice: any;
+  changePercent: any;
   volume: any;
 }
 export interface DataPoint {
@@ -112,9 +102,14 @@ export function getSumOfDaysAgo(data: DataPoint[], days: number): HistoricalDeta
   var tempData = [...data];
   var historicalDetails: HistoricalDetails = { month: "", value: 0 };
   const now = new Date();
-  const DaysAgo = new Date(now);
+  const DaysAgo = new Date(now); 
   DaysAgo.setDate(now.getDate() - days);
-  tempData = tempData.filter(entry => new Date(entry.date) >= DaysAgo);
+  const DaysAgoWeek = new Date(DaysAgo);
+  DaysAgoWeek.setDate(DaysAgo.getDate() - 5);
+  DaysAgo.setHours(0, 0, 0, 0);
+  DaysAgoWeek.setHours(0, 0, 0, 0);
+  console.log(DaysAgo + "  " + DaysAgoWeek);
+  tempData = tempData.filter(entry => entry.date <= DaysAgo && entry.date >= DaysAgoWeek);
   const recordCount = tempData.length;
   historicalDetails.month = DaysAgo.getFullYear() + " " + getMonthName(DaysAgo) + " " + DaysAgo.getDate();
   historicalDetails.value = formatToTwoDecimals(tempData.reduce((sum, entry) => sum + entry.value, 0) / recordCount);  

@@ -3,7 +3,7 @@
 <form (ngSubmit)="add()">
 
     <span>Stock ID</span>
-    <input matInput [(ngModel)]="stock.stockId" name="StockId"  required>
+    <input matInput [(ngModel)]="stock.stockCode" name="StockId"  required>
 
     <span>Trade Date</span>
     <input matInput [(ngModel)]="stock.sharemarketDate" name="tradeDate" required type="date">
@@ -21,11 +21,11 @@
 
     <span>Close Price</span>
     <input matInput [(ngModel)]="stock.closePrice" name="closePrice" required type="number">
-
+<!-- 
 
 
     <span>Avg Price</span>
-    <input matInput [(ngModel)]="stock.avgPrice" name="avgPrice" required type="number">
+    <input matInput [(ngModel)]="stock.avgPrice" name="avgPrice" required type="number"> -->
 
 
 
