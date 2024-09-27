@@ -18,11 +18,12 @@ export class StockComponent implements OnInit {
   ngOnInit(): void {
     
     this.stockCode = this.activatedRoute.snapshot.params["id"];
-    //this._helperService.getItem("stocks", this.stockCode).subscribe(result => {
-    //  console.log(result);
-    //  this.stock = result;
-    //}, error => console.log(error));
     this.GetStockHistory();
+    this._helperService.getItem("stocks", this.stockCode).subscribe(result => {
+      console.log(result);
+      this.stock = result;
+    }, error => console.log(error));
+   
     
   }
   GetStockHistory(): void {
@@ -105,7 +106,7 @@ export function getSumOfDaysAgo(data: DataPoint[], days: number): HistoricalDeta
   const DaysAgo = new Date(now); 
   DaysAgo.setDate(now.getDate() - days);
   const DaysAgoWeek = new Date(DaysAgo);
-  DaysAgoWeek.setDate(DaysAgo.getDate() - 5);
+  DaysAgoWeek.setDate(DaysAgo.getDate() - days);
   DaysAgo.setHours(0, 0, 0, 0);
   DaysAgoWeek.setHours(0, 0, 0, 0);
   console.log(DaysAgo + "  " + DaysAgoWeek);

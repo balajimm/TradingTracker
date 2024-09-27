@@ -14,12 +14,22 @@ export class LineChartComponent implements OnInit {
   stockId: any;
   public stockTrack: StockTrack[] = [];
   public histroyData: HistoricalDetails[] = [];
+  public monthlyHistroyData: HistoricalDetails[] = [];
+  public dailyHistroyData: HistoricalDetails[] = []; 
   //public chartLabels: string[] = [];
   //public chartData: any[] = [];
   public data: DataPoint[] = [];
 /*  @Input() dataSource: { date: Date; value: number }[] = [];*/
  
   public lineChartData: ChartData<'line'> = {
+    labels: [],
+    datasets: []
+  };
+  public lineMonthlyChartData: ChartData<'line'> = {
+    labels: [],
+    datasets: []
+  };
+  public lineDailyChartData: ChartData<'line'> = {
     labels: [],
     datasets: []
   };
@@ -42,9 +52,15 @@ export class LineChartComponent implements OnInit {
       console.log(reverseOrderByDate(this.data));
       this.data = reverseOrderByDate(this.data);
       console.log(this.data);
-      for (let i = 5; i <= 450; i = i + 5) {
+      for (let i = 5; i <= 1080; i = i + 5) {
         this.histroyData.push(getSumOfDaysAgo(this.data, i));
-      }    
+      }
+      for (let i = 30; i <= 1080; i = i + 30) {
+        this.monthlyHistroyData.push(getSumOfDaysAgo(this.data, i));
+      }
+      for (let i = 1; i <= 1080; i = i + 1) {
+        this.dailyHistroyData.push(getSumOfDaysAgo(this.data, i));
+      }
       this.lineChartData = {
         labels: this.histroyData.map(d => d.month).reverse(), // Array of labels for the x-axis
         datasets: [
@@ -52,6 +68,30 @@ export class LineChartComponent implements OnInit {
             data: this.histroyData.map(d => d.value).reverse(), // Array of values for the line chart
             label: 'Sample Data',
             borderColor: '#3cba9f',
+            backgroundColor: 'rgba(60, 186, 159, 0.2)',
+            fill: true // Whether to fill under the line
+          }
+        ]
+      };
+      this.lineMonthlyChartData = {
+        labels: this.monthlyHistroyData.map(d => d.month).reverse(), // Array of labels for the x-axis
+        datasets: [
+          {
+            data: this.monthlyHistroyData.map(d => d.value).reverse(), // Array of values for the line chart
+            label: 'Sample Data',
+            borderColor: '#ff0000',
+            backgroundColor: 'rgba(60, 186, 159, 0.2)',
+            fill: true // Whether to fill under the line
+          }
+        ]
+      };
+      this.lineDailyChartData = {
+        labels: this.dailyHistroyData.map(d => d.month).reverse(), // Array of labels for the x-axis
+        datasets: [
+          {
+            data: this.dailyHistroyData.map(d => d.value).reverse(), // Array of values for the line chart
+            label: 'Sample Data',
+            borderColor: '#ff0000',
             backgroundColor: 'rgba(60, 186, 159, 0.2)',
             fill: true // Whether to fill under the line
           }

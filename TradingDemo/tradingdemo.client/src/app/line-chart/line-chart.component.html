@@ -1,11 +1,25 @@
+<h1>Weekly Average</h1>
 <canvas baseChart
         [type]="'line'"
         [data]="lineChartData"
         [options]="lineChartOptions"
         [legend]="lineChartLegend">
 </canvas>
-
-<table>
+<h1>Monthly Average</h1>
+<canvas baseChart
+        [type]="'line'"
+        [data]="lineMonthlyChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+</canvas>
+<h1>Daily Average</h1>
+<canvas baseChart
+        [type]="'line'"
+        [data]="lineDailyChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+</canvas>
+<!-- <table>
     <thead>
         <tr>
             <th>Date</th>
@@ -19,4 +33,4 @@
         </tr>
     </tbody>
 </table>
-
+ -->

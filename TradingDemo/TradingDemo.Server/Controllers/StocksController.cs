@@ -30,9 +30,9 @@ namespace TradingDemo.Server.Controllers
 
         // GET: api/Stocks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Stock>> GetStock(int id)
+        public async Task<ActionResult<Stock>> GetStock(string id)
         {
-            var stock = await _context.Stocks.FindAsync(id);
+            var stock = await _context.Stocks.Where(item=> item.StockCode == id).FirstOrDefaultAsync();
 
             if (stock == null)
             {
